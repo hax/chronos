@@ -23,8 +23,9 @@
   "dependencies": {
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
-    "mqtt": "^1.14.0",
-    "systemjs": "^0.19.37",
-    "vue": "^2.0.0-rc.3"
-  }
+    "mqtt": "^2.0.1",
+    "systemjs": "^0.19.39",
+    "vue": "^2.0.0-rc.8"
+  },
+  "private": true
 }
