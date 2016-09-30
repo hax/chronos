@@ -1,0 +1,56 @@
+<!doctype html>
+
+<html lang="zh-Hans">
+<head>
+<meta charset=utf-8>
+
+<script src="../../node_modules/systemjs/dist/system.js"></script>
+<script>
+System.config({
+	map: {
+		vue:	'../../node_modules/vue/dist/vue.js',
+	}
+})
+System.import('./index.js')
+</script>
+
+<style>
+html {
+	font-size: 2em;
+}
+article.room {
+	/*border: 1px solid black;*/
+	padding: 1em;
+}
+.current {
+	border-bottom: thin solid gray;
+}
+#current-time {
+	position: absolute;
+	left: 5em;
+	top: 1.2em;
+}
+</style>
+
+<template id="chronos-room">
+	<article class="room" :class="[room.status]">
+		<header>{{room.name}}</header>
+		<section class="current" :class="[room.current]">
+			<h1>Current</h1>
+		</section>
+		<section class="coming">
+			<h1>Coming</h1>
+			<p v-for="event in room.comingEvents">
+				{{event.startTime}}~{{event.endTime}}
+				{{event.subject}}
+			</p>
+		</section>
+	</article>
+</template>
+
+<body>
+<main>
+	<time id="current-time">{{now.toLocaleTimeString()}}</time>
+	<chronos-room v-for="room in rooms" :room="room">
+	</chronos-room>
+</main>

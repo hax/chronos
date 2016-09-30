@@ -1,0 +1,28 @@
+{
+  "name": "chronos",
+  "version": "1.0.0",
+  "description": "conference room system",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hax/chronos.git"
+  },
+  "author": "hax <johnhax@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hax/chronos/issues"
+  },
+  "homepage": "https://github.com/hax/chronos#readme",
+  "dependencies": {
+    "isomorphic-fetch": "^2.2.1",
+    "mqtt": "^1.14.0",
+    "systemjs": "^0.19.37",
+    "vue": "^2.0.0-rc.3"
+  }
+}
