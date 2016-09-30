@@ -1,44 +1,29 @@
-require('./sync')
-
-const {createServer} = require('http')
-
-createServer((request, response) => {
-	const [f, segments] = router(request.url)
-	response.setHeader('Access-Control-Allow-Origin', '*')
-	f({request, response, segments})
-}).listen(1337)
-
-function router(url) {
-	const segments = url.split('/').slice(1)
-	const route = [routers[segments[0]], segments]
-	return route[0] ? route : [routers['404'], null]
-}
-
+const express = require('express')
+const path = require('path')
 const {rooms} = require('../model/rooms')
 const {switchLED} = require('../iot')
+// require('./sync')
 
-const routers = {
-	rooms({request, response}) {
-		response.write(JSON.stringify(rooms))
-		response.end()
-	},
-	reset({request, response, segments}) {
-		if (request.method !== 'POST') {
-			response.writeHead(405)
-			response.end()
-		}
-		const [, roomId] = segments
-		const room = rooms.find(room => room.id === roomId)
-		if (!room) {
-			response.writeHead(404)
-			response.end('Room not found:', roomId)
-		} else {
-			switchLED(roomId, false)
-			response.end()
-		}
-	},
-	'404'({response}) {
-		response.writeHead(404)
-		response.end(JSON.stringify('Not found'))
+
+const app = express()
+const port = 8080
+
+app.listen(port, () => console.log('Chronos started on port %s', port))
+
+app.use(express.static(path.resolve(__dirname, '../client')))
+app.use('/vue', express.static(path.resolve(__dirname, '../../node_modules/vue/dist')))
+
+app.get('/rooms', (req, res) => {
+	res.status(200).send(rooms)
+})
+
+app.post('/clear/:roomId', (req, res) => {
+	const roomId = req.params.roomId
+	const room = rooms.find(room => room.id === roomId)
+	if (!room) {
+		res.status(404).send(`No such room: ${roomId}`)
+	} else {
+		switchLED(roomId, false)
+		res.status(204).end()
 	}
-}
+})
