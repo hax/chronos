@@ -1,5 +1,5 @@
-require('isomorphic-fetch')
-const {inspect} = require('util')
+import 'isomorphic-fetch'
+import {inspect} from 'util'
 
 const LogLevel = {
 	debug: 1,
@@ -10,7 +10,7 @@ const LogLevel = {
 
 const LOG_LEVEL = LogLevel.warn
 
-function fetchJSON(url, options) {
+export function fetchJSON(url, options) {
 	return fetch(url, options)
 		.then(response => {
 			if (LOG_LEVEL < LogLevel.info) console.info('fetch json from:', url)
@@ -33,7 +33,7 @@ function fetchJSON(url, options) {
 		.then(debugJSON)
 }
 
-function debugJSON(result) {
+export function debugJSON(result) {
 	if (result.error) {
 		if (LOG_LEVEL < LogLevel.error) dir('error', result)
 		throw new Error(result.error)
@@ -45,9 +45,4 @@ function debugJSON(result) {
 
 function dir(level = 'log', obj) {
 	console[level](inspect(obj, {depth: null, colors: true}))
-}
-
-module.exports = {
-	fetchJSON,
-	debugJSON,
 }

@@ -1,4 +1,4 @@
-const mqtt = require('mqtt')
+import mqtt from 'mqtt'
 
 // const options = {
 // 	servers: [
@@ -18,11 +18,7 @@ client.on('message', (topic, message) => {
 	console.warn('Chronos MQTT broker says: %s', message)
 })
 
-function switchLED(room, toggle) {
+export function switchLED(room, toggle) {
 	console.info(toggle ? 'turn on' : 'turn off', 'LED of', room)
 	client.publish(`chronos/led_switch/${room}`, toggle ? '1' : '0', {qos: 2, retain: true})
-}
-
-module.exports = {
-	switchLED,
 }

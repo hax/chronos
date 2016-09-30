@@ -1,6 +1,6 @@
-const {currentTime, TIME_UNIT} = require('./time.js')
+import Session from './Session'
 
-class Room {
+export default class Room {
 
 	constructor(info) {
 		this.info = info
@@ -88,5 +88,3 @@ function running(it) {
 		|| it.status === 'ready-to-end'
 		|| it.status === 'in-overtime'
 }
-
-module.exports = Room

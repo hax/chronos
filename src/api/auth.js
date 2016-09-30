@@ -1,6 +1,6 @@
-const {fetchJSON} = require('./util')
+import {fetchJSON} from './util'
 
-function requestAccessToken({oauth, serviceRoot, tenantId, clientId, clientSecret}) {
+export function requestAccessToken({oauth, serviceRoot, tenantId, clientId, clientSecret}) {
 	const url = `${oauth}/${tenantId}/oauth2/token`
 	const body = `grant_type=client_credentials&client_id=${encodeURIComponent(clientId)}&client_secret=${encodeURIComponent(clientSecret)}&resource=${encodeURIComponent(serviceRoot)}`
 	// console.info('request access token:', url, body)
@@ -13,8 +13,4 @@ function requestAccessToken({oauth, serviceRoot, tenantId, clientId, clientSecre
 		},
 		body,
 	})
-}
-
-module.exports = {
-	requestAccessToken,
 }

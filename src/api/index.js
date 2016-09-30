@@ -1,7 +1,7 @@
-const {fetchJSON} = require('./util')
-const {requestAccessToken} = require('./auth')
+import {fetchJSON} from './util'
+import {requestAccessToken} from './auth'
 
-module.exports = class GraphAPI {
+export default class GraphAPI {
 
 	constructor(appConfig, apiVersion = 'v1.0') {
 		this.config = appConfig

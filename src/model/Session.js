@@ -1,11 +1,11 @@
-class Assignment {
+export class Assignment {
 	constructor(calendarEvent) {
 		this.event = calendarEvent
 		this.status = calendarEvent.isCancelled ? 'cancelled' : ''
 	}
 }
 
-class Session {
+export default class Session {
 	constructor(calendarEvent) {
 		this.event = calendarEvent
 		this.status = calendarEvent.isCancelled ? 'cancelled' : ''
@@ -69,5 +69,3 @@ class Session {
 
 	}
 }
-
-module.exports = Session

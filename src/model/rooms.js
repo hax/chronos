@@ -1,4 +1,4 @@
-const Room = require('./Room.js')
+import Room from './Room'
 
 const rooms = [
 	{id: 'lianmengmeetingroom',	name: '效率',	location: '206',	size: 50},

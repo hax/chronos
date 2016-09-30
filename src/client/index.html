@@ -7,9 +7,12 @@
 <script src="/systemjs/system.js"></script>
 <script>
 System.config({
+	transpiler: 'plugin-babel',
 	map: {
-		vue:	'/vue/vue.min.js',
-	}
+		'plugin-babel':	'/systemjs-plugin-babel/plugin-babel.js',
+		'systemjs-babel-build':	'/systemjs-plugin-babel/systemjs-babel-browser.js',
+		'vue':	'/vue/vue.min.js',
+	},
 })
 System.import('/index.js')
 </script>

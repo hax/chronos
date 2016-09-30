@@ -2,13 +2,11 @@
   "name": "chronos",
   "version": "1.0.0",
   "description": "conference room system",
-  "main": "index.js",
   "directories": {
     "test": "test"
   },
   "scripts": {
-    "test": "node test",
-    "start": "node src/server"
+    "test": "node test"
   },
   "repository": {
     "type": "git",
@@ -21,10 +19,16 @@
   },
   "homepage": "https://github.com/hax/chronos#readme",
   "dependencies": {
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.16.0",
+    "babel-preset-es2016": "^6.16.0",
+    "babel-preset-es2017": "^6.16.0",
+    "babel-preset-stage-0": "^6.16.0",
+    "babel-register": "^6.16.3",
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
     "mqtt": "^2.0.1",
     "systemjs": "^0.19.39",
+    "systemjs-plugin-babel": "0.0.15",
     "vue": "^2.0.0-rc.8"
   },
   "private": true
