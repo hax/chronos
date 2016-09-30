@@ -14,6 +14,12 @@ System.config({
 		'fetch':	'/fetch/fetch.js',
 		'vue':	'/vue/vue.min.js',
 	},
+	packages: {
+		'model': {
+			main: 'index.js',
+			defaultExtension: 'js',
+		}
+	}
 })
 
 if (!window.fetch) System.import('fetch').then(main)

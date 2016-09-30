@@ -1,5 +1,5 @@
 import GraphAPI from '../api'
-import {rooms} from '../model/rooms'
+import {rooms} from '../model'
 import {switchLED} from '../iot'
 
 const config = require('../../api-config')

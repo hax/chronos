@@ -1,6 +1,5 @@
-// const Session = require('../model/Session.js')
 import Vue from 'vue'
-import {rooms} from './rooms.js'
+import {rooms} from 'model'
 
 Vue.component('chronos-room', {
 	template: '#chronos-room',

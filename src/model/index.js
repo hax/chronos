@@ -1,6 +1,6 @@
 import Room from './Room'
 
-const rooms = [
+export const rooms = [
 	{id: 'lianmengmeetingroom',	name: '效率',	location: '206',	size: 50},
 	{id: 'chaogemeetingroom',	name: '朝歌',	location: '206',	size: 6},
 	{id: 'muyemeetingroom',	name: '牧野',	location: '206',	size: 10},
@@ -14,11 +14,6 @@ const rooms = [
 	{id: '2409huiyishi',	name: '共创',	location: '2409',	size: 30},
 ].slice(0, 1).map(info => new Room(info))
 
-function roomDistance(a, b) {
+export function roomDistance(a, b) {
 	return Math.abs(a.location - b.location)
-}
-
-module.exports = {
-	rooms,
-	roomDistance,
 }

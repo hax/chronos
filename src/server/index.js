@@ -1,6 +1,6 @@
 import express from 'express'
 import path from 'path'
-import {rooms} from '../model/rooms'
+import {rooms} from '../model'
 import {switchLED} from '../iot'
 // require('./sync')
 
@@ -9,8 +9,8 @@ const port = 8080
 
 app.listen(port, () => console.log('Chronos HTTP server started on port %s.', port))
 
-app.use(express.static(path.resolve(__dirname, '../client')))
-app.use(express.static(path.resolve(__dirname, '../model')))
+app.use('/',	express.static(path.resolve(__dirname, '../client')))
+app.use('/model',	express.static(path.resolve(__dirname, '../model')))
 app.use('/systemjs',	express.static(path.resolve(__dirname, '../../node_modules/systemjs/dist')))
 app.use('/systemjs-plugin-babel',	express.static(path.resolve(__dirname, '../../node_modules/systemjs-plugin-babel')))
 app.use('/fetch',	express.static(path.resolve(__dirname, '../../node_modules/whatwg-fetch')))
