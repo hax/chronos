@@ -6,6 +6,10 @@
 
 <script src="/systemjs/system.js"></script>
 <script>
+const convention = {
+	main: 'index.js',
+	defaultExtension: 'js',
+}
 System.config({
 	transpiler: 'plugin-babel',
 	map: {
@@ -15,10 +19,8 @@ System.config({
 		'vue':	'/vue/vue.min.js',
 	},
 	packages: {
-		'model': {
-			main: 'index.js',
-			defaultExtension: 'js',
-		}
+		'model': convention,
+		'utils': convention,
 	}
 })
 

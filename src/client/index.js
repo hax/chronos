@@ -1,5 +1,10 @@
 import Vue from 'vue'
 import {rooms} from 'model'
+import {log, fetchJSON} from 'utils'
+
+log.level = 'dd'
+
+log.dd(rooms)
 
 Vue.component('chronos-room', {
 	template: '#chronos-room',
@@ -14,12 +19,10 @@ const vm = new Vue({
 	},
 	methods: {
 		show(event) {
-			console.log(event)
+			log.d(event)
 		},
 	},
 })
-
-console.log(vm.rooms[0].coming)
 
 
 setInterval(update, 1000)
@@ -34,13 +37,12 @@ fetchRooms()
 setInterval(fetchRooms, 5000)
 
 function fetchRooms() {
-	fetch('http://localhost:1337/rooms')
-	.then(response => response.json())
+	fetchJSON('/rooms')
 	.then(updateRooms => {
 		updateRooms.forEach(updateRoom => {
 			const room = rooms.find(room => room.id === updateRoom.info.id)
 			if (room == null) {
-				console.warn('No room:', updateRoom.info.id)
+				log.warn('No room:', updateRoom.info.id)
 			} else {
 				room.info = updateRoom.info
 				room.schedule = updateRoom.schedule
@@ -48,6 +50,6 @@ function fetchRooms() {
 		})
 	})
 	.then(() => {
-		console.log('rooms updated', rooms[0])
+		log.d('rooms updated', rooms[0])
 	})
 }
