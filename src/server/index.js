@@ -8,7 +8,7 @@ const {switchLED} = require('../iot')
 const app = express()
 const port = 8080
 
-app.listen(port, () => console.log('Chronos started on port %s', port))
+app.listen(port, () => console.log('Chronos HTTP server started on port %s.', port))
 
 app.use(express.static(path.resolve(__dirname, '../client')))
 app.use('/systemjs', express.static(path.resolve(__dirname, '../../node_modules/systemjs/dist')))

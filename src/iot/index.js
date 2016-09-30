@@ -11,11 +11,11 @@ const options = require('../../iot-config')
 const client = mqtt.connect(options)
 
 client.on('connect', () => {
-	console.info('Chronos mqtt broker connected.')
+	console.info('Chronos MQTT broker connected.')
 })
 
 client.on('message', (topic, message) => {
-	console.warn('Chronos mqtt broker says: %s', message)
+	console.warn('Chronos MQTT broker says: %s', message)
 })
 
 function switchLED(room, toggle) {
