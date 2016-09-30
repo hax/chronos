@@ -20,16 +20,23 @@ export default class Room {
 		return this.info.size
 	}
 
+	get schedule() {
+		return this._schedule
+	}
+	set schedule(events) {
+		this._schedule = events.map(event => new Session(event))
+	}
+
 	get available() {
-		return !this.current
+		return !this.currentSession
 	}
 
-	get currentEvent() {
-		return this.schedule.find(event => event.current)
+	get currentSession() {
+		return this.schedule.find(running)
 	}
 
-	get comingEvents() {
-		return this.schedule.filter(event => true)
+	get comingSessions() {
+		return this.schedule.filter(session => true)
 	}
 
 	get status() {
@@ -41,50 +48,11 @@ export default class Room {
 	end() {
 	}
 
-	get schedule() {
-		return this._schedule
-	}
-	set schedule(s) {
-		this._schedule = s.map(event => new Event(event))
-	}
 }
 
-class Event {
-	constructor(info) {
-		this.info = info
-	}
-	get id() {
-		return this.info.id
-	}
-	get isCanceled() {
-		return this.info.isCanceled
-	}
-	get startTime() {
-		const d = new Date(this.info.start.dateTime)
-		return pad0(d.getHours()) + ':' + pad0(d.getMinutes())
-	}
-	get endTime() {
-		const d = new Date(this.info.end.dateTime)
-		return pad0(d.getHours()) + ':' + pad0(d.getMinutes())
-	}
-	get subject() {
-		return this.info.subject
-	}
-	get current() {
-		const d0 = new Date(this.info.start.dateTime)
-		const d1 = new Date(this.info.end.dateTime)
-		const now = new Date()
-		return now > d0 && now < d1
-	}
-}
-
-function pad0(x) {
-	return String(x).padStart(2, '0')
-}
-
-function running(it) {
-	return it.status === 'assigned'
-		|| it.status === 'in-progress'
-		|| it.status === 'ready-to-end'
-		|| it.status === 'in-overtime'
+function running({status}) {
+	return status === 'assigned'
+		|| status === 'in-progress'
+		|| status === 'ready-to-end'
+		|| status === 'in-overtime'
 }
