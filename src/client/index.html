@@ -4,14 +4,14 @@
 <head>
 <meta charset=utf-8>
 
-<script src="../../node_modules/systemjs/dist/system.js"></script>
+<script src="/systemjs/system.js"></script>
 <script>
 System.config({
 	map: {
-		vue:	'../../node_modules/vue/dist/vue.js',
+		vue:	'/vue/vue.min.js',
 	}
 })
-System.import('./index.js')
+System.import('/index.js')
 </script>
 
 <style>
