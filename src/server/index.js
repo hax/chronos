@@ -11,6 +11,7 @@ const port = 8080
 app.listen(port, () => console.log('Chronos started on port %s', port))
 
 app.use(express.static(path.resolve(__dirname, '../client')))
+app.use('/systemjs', express.static(path.resolve(__dirname, '../../node_modules/systemjs/dist')))
 app.use('/vue', express.static(path.resolve(__dirname, '../../node_modules/vue/dist')))
 
 app.get('/rooms', (req, res) => {
