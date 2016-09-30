@@ -11,10 +11,19 @@ System.config({
 	map: {
 		'plugin-babel':	'/systemjs-plugin-babel/plugin-babel.js',
 		'systemjs-babel-build':	'/systemjs-plugin-babel/systemjs-babel-browser.js',
+		'fetch':	'/fetch/fetch.js',
 		'vue':	'/vue/vue.min.js',
 	},
 })
-System.import('/index.js')
+
+if (!window.fetch) System.import('fetch').then(main)
+else main()
+
+function main() {
+	System.import('/index.js').catch(function (err) {
+		console.error(err)
+	})
+}
 </script>
 
 <style>
