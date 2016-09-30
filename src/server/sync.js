@@ -1,7 +1,6 @@
-const mqtt = require('mqtt')
-const GraphAPI = require('../api')
-const {rooms} = require('../model/rooms')
-const {switchLED} = require('../iot')
+import GraphAPI from '../api'
+import {rooms} from '../model/rooms'
+import {switchLED} from '../iot'
 
 const config = require('../../api-config')
 const graph = new GraphAPI(config)

@@ -1,9 +1,8 @@
-const express = require('express')
-const path = require('path')
-const {rooms} = require('../model/rooms')
-const {switchLED} = require('../iot')
+import express from 'express'
+import path from 'path'
+import {rooms} from '../model/rooms'
+import {switchLED} from '../iot'
 // require('./sync')
-
 
 const app = express()
 const port = 8080
@@ -11,8 +10,11 @@ const port = 8080
 app.listen(port, () => console.log('Chronos HTTP server started on port %s.', port))
 
 app.use(express.static(path.resolve(__dirname, '../client')))
-app.use('/systemjs', express.static(path.resolve(__dirname, '../../node_modules/systemjs/dist')))
-app.use('/vue', express.static(path.resolve(__dirname, '../../node_modules/vue/dist')))
+app.use(express.static(path.resolve(__dirname, '../model')))
+app.use('/systemjs',	express.static(path.resolve(__dirname, '../../node_modules/systemjs/dist')))
+app.use('/systemjs-plugin-babel',	express.static(path.resolve(__dirname, '../../node_modules/systemjs-plugin-babel')))
+app.use('/fetch',	express.static(path.resolve(__dirname, '../../node_modules/whatwg-fetch')))
+app.use('/vue',	express.static(path.resolve(__dirname, '../../node_modules/vue/dist')))
 
 app.get('/rooms', (req, res) => {
 	res.status(200).send(rooms)
