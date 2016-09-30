@@ -38,7 +38,7 @@ function alertEnd() {
 	rooms.forEach(room => {
 		console.log(`check ${room.id}, ${room.schedule.length}/${alerted.end.size}`)
 		room.schedule.forEach(event => {
-			const reminderTime = new Date(event.end.dateTime) - 300 * 1000
+			const reminderTime = new Date(event.info.end.dateTime) - 300 * 1000
 			if (!alerted.end.has(event.id) && !event.isCanceled && new Date() >= reminderTime) {
 				switchLED(room.id, true)
 				alerted.end.add(event.id)

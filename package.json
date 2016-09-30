@@ -7,7 +7,8 @@
     "test": "test"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "http-server -p 80 && node src/server"
   },
   "repository": {
     "type": "git",
@@ -20,6 +21,7 @@
   },
   "homepage": "https://github.com/hax/chronos#readme",
   "dependencies": {
+    "http-server": "^0.9.0",
     "isomorphic-fetch": "^2.2.1",
     "mqtt": "^1.14.0",
     "systemjs": "^0.19.37",

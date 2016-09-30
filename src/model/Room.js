@@ -53,6 +53,12 @@ class Event {
 	constructor(info) {
 		this.info = info
 	}
+	get id() {
+		return this.info.id
+	}
+	get isCanceled() {
+		return this.info.isCanceled
+	}
 	get startTime() {
 		const d = new Date(this.info.start.dateTime)
 		return pad0(d.getHours()) + ':' + pad0(d.getMinutes())
