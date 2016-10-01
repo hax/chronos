@@ -18,7 +18,7 @@ function retriveCals() {
 	todayEnd.setSeconds(59)
 	todayEnd.setMilliseconds(999)
 
-	console.info('time range:', todayStart, todayEnd)
+	log.d('time range:', todayStart, todayEnd)
 
 	rooms.forEach(room => {
 		const roomId = room.id + '@baixing.com'
@@ -35,7 +35,7 @@ const alerted = {
 
 function alertEnd() {
 	rooms.forEach(room => {
-		console.log(`check ${room.id}, ${room.schedule.length}/${alerted.end.size}`)
+		log.info(`check ${room.id}, ${room.schedule.length}/${alerted.end.size}`)
 		room.schedule.forEach(session => {
 			const remind = session.end - 5 * 60 * 1000
 			if (!alerted.end.has(session.id) && !session.isCanceled && Date.now() >= remind) {
