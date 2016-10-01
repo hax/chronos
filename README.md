@@ -9,7 +9,7 @@ Need Node.js V6.7+
 ```sh
 git clone https://github.com/hax/chronos.git
 cd chronos
-npm install --registry=https://registry.npm.taobao.org
+npm install
 ```
 
 ### Step 2
