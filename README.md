@@ -42,4 +42,4 @@ Create config files
 npm start
 ```
 
-Then visit: http://<server>:8080/
+Then visit: `http://<server>:8080/`
