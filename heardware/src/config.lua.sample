@@ -1,0 +1,21 @@
+return {
+  wifi = {
+    ssid = 'passwd',
+  },
+  hostname = 'Node-' .. node.chipid(),
+  mqtt_broker = {
+    name = '',
+    host = '',
+    port = '',
+    secure = 1,
+    user = '',
+    password = '',
+    timeout = 10,
+  },
+  chronos = {
+    name = '',
+    led_pin = 0,
+    led_lit = 1,
+    telnet_port = 0,
+  }
+}
