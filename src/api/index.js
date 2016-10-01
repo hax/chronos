@@ -1,4 +1,4 @@
-import {fetchJSON} from '../utils'
+import {fetchJSON} from '../util'
 import {requestAccessToken} from './auth'
 
 export default class GraphAPI {

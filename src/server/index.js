@@ -11,7 +11,7 @@ app.listen(port, () => console.log('Chronos HTTP server started on port %s.', po
 
 app.use('/',	express.static(path.resolve(__dirname, '../client')))
 app.use('/model',	express.static(path.resolve(__dirname, '../model')))
-app.use('/utils',	express.static(path.resolve(__dirname, '../util')))
+app.use('/util',	express.static(path.resolve(__dirname, '../util')))
 
 app.use('/systemjs',	express.static(path.resolve(__dirname, '../../node_modules/systemjs/dist')))
 app.use('/systemjs-plugin-babel',	express.static(path.resolve(__dirname, '../../node_modules/systemjs-plugin-babel')))

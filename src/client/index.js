@@ -1,6 +1,6 @@
 import Vue from 'vue'
 import {rooms} from 'model'
-import {log, fetchJSON} from 'utils'
+import {log, fetchJSON} from 'util'
 
 log.level = 'dd'
 

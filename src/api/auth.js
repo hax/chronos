@@ -1,4 +1,4 @@
-import {fetchJSON} from '../utils'
+import {fetchJSON} from '../util'
 
 export function requestAccessToken({oauth, serviceRoot, tenantId, clientId, clientSecret}) {
 	const url = `${oauth}/${tenantId}/oauth2/token`
