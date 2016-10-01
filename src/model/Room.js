@@ -3,8 +3,13 @@ import Session from './Session'
 export default class Room {
 
 	constructor(info) {
-		this.info = info
-		this._schedule = []
+		if (info.info) {
+			this.info = info.info
+			this.schedule = info._schedule
+		} else {
+			this.info = info
+			this.schedule = []
+		}
 	}
 
 	get id() {
@@ -36,7 +41,7 @@ export default class Room {
 	}
 
 	get comingSessions() {
-		return this.schedule.filter(session => true)
+		return this.schedule.filter(({status}) => status === 'coming')
 	}
 
 	get status() {
@@ -44,14 +49,22 @@ export default class Room {
 	}
 
 	start() {
+		if (this.currentSession) {
+			return this.currentSession.start()
+		} else return false
 	}
+
 	end() {
+		if (this.currentSession) {
+			return this.currentSession.end()
+		} else return false
 	}
 
 }
 
 function running({status}) {
 	return status === 'assigned'
+		|| status === 'ready-to-start'
 		|| status === 'in-progress'
 		|| status === 'ready-to-end'
 		|| status === 'in-overtime'

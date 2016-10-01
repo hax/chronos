@@ -2,7 +2,7 @@ import express from 'express'
 import path from 'path'
 import {rooms} from '../model'
 import {switchLED} from '../iot'
-// require('./sync')
+import './sync'
 
 const app = express()
 const port = 8080

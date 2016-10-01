@@ -1,6 +1,9 @@
 import GraphAPI from '../api'
 import {rooms} from '../model'
 import {switchLED} from '../iot'
+import {log} from '../util'
+
+log.level = 'd'
 
 const config = require('../../api-config')
 const graph = new GraphAPI(config)
@@ -24,6 +27,7 @@ function retriveCals() {
 		const roomId = room.id + '@baixing.com'
 		graph.getCalendarView(roomId, todayStart, todayEnd).then(result => {
 			room.schedule = result.value
+			log.d(room.schedule)
 		})
 	})
 }
@@ -37,8 +41,7 @@ function alertEnd() {
 	rooms.forEach(room => {
 		log.info(`check ${room.id}, ${room.schedule.length}/${alerted.end.size}`)
 		room.schedule.forEach(session => {
-			const remind = session.end - 5 * 60 * 1000
-			if (!alerted.end.has(session.id) && !session.isCanceled && Date.now() >= remind) {
+			if (!alerted.end.has(session.id) && session.status == 'ready-to-end') {
 				switchLED(room.id, true)
 				alerted.end.add(session.id)
 			}

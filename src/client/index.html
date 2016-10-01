@@ -36,33 +36,58 @@ function main() {
 
 <style>
 html {
-	font-size: 2em;
+	font-family: 'PingFang SC', 'Hiragino Sans GB', 'Source Han Sans CN', 'Wenquanyi Micro Hei', 'Microsoft YaHei';
+	zoom: 2;
 }
 article.room {
 	/*border: 1px solid black;*/
 	padding: 1em;
 }
-.current {
-	border-bottom: thin solid gray;
+header {
+	padding: 0.5em 0;
+	border-bottom: medium ridge;
 }
-#current-time {
-	position: absolute;
-	left: 5em;
-	top: 1.2em;
+section > h1 {
+	margin: 0.5em 0;
+}
+section p {
+	margin: 0.5em 0 ;
+}
+.current {
+	border-bottom: medium ridge;
+}
+.current input[type="button"] {
+	float: right;
+}
+main > footer {
+	font-size: 0.75rem;
+	position: fixed;
+	bottom: 0.5em;
+	right: 1em;
 }
 </style>
 
 <template id="chronos-room">
 	<article class="room" :class="[room.status]">
-		<header>{{room.name}}</header>
-		<section class="current" :class="[room.current]">
+		<header>{{room.name}} <small>会议室 ({{room.location}})</small></header>
+		<section class="current" :class="[room.currentSession]">
 			<h1>Current</h1>
+			<p v-if="room.available">空闲</p>
+			<p v-else>
+				{{room.currentSession.status}} {{room.currentSession.subject}}
+				<span v-if="room.currentSession.status == 'ready-to-start'">
+					<input type="button" @click="$root.startSession(room)" value="会议开始" />
+				</span>
+				<span v-else>
+					<input type="button" @click="$root.endSession(room)" value="会议结束" />
+				</span>
+			</p>
 		</section>
 		<section class="coming">
 			<h1>Coming</h1>
-			<p v-for="event in room.comingEvents">
-				{{event.startTime}}~{{event.endTime}}
-				{{event.subject}}
+			<p v-for="session in room.comingSessions">
+				{{ session.startTime | timeHHMM }}~{{ session.endTime | timeHHMM }}
+				{{ session.subject }}
 			</p>
 		</section>
 	</article>
@@ -70,7 +95,9 @@ article.room {
 
 <body>
 <main>
-	<time id="current-time">{{now.toLocaleTimeString()}}</time>
-	<chronos-room v-for="room in rooms" :room="room">
+	<chronos-room v-for="room in rooms" :room="room" :now="now">
 	</chronos-room>
+	<footer>
+		<time id="current-time">{{now.toLocaleString()}}</time>
+	</footer>
 </main>

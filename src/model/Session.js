@@ -1,14 +1,34 @@
 export class Assignment {
 	constructor(calendarEvent) {
-		this.event = calendarEvent
-		this.status = calendarEvent.isCancelled ? 'cancelled' : ''
+		if (calendarEvent.event) {
+			this.event = calendarEvent.event
+		} else {
+			this.event = calendarEvent
+		}
+		this.status = this.event.isCancelled ? 'cancelled' : ''
 	}
 }
 
 export default class Session {
 	constructor(calendarEvent) {
-		this.event = calendarEvent
-		this.status = calendarEvent.isCancelled ? 'cancelled' : ''
+		if (calendarEvent.event) {
+			this.event = calendarEvent.event
+		} else {
+			this.event = calendarEvent
+		}
+	}
+	get status() {
+		if (this.event.isCancelled) return 'cancelled'
+		if (this._abandoned) return 'abandoned'
+		if (this._ended) return 'ended'
+		const now = Date.now()
+		if (now > this.endTime) return 'ended'
+		if (now > this.endTime - 5 * 60 * 1000) return 'ready-to-end'
+		if (now < this.startTime - 15 * 60 * 1000) return 'coming'
+		if (this._started) return 'in-progress'
+		if (now < this.startTime + 10 * 60 * 1000) return 'ready-to-start'
+		return 'in-progress'
+		// return 'abandoned'
 	}
 	get id() {
 		return this.event.id
@@ -22,14 +42,14 @@ export default class Session {
 	get attendees() {
 		return this.event.attendees
 	}
-	get start() {
-		return Date.parse(this.event.start.dateTime)
+	get startTime() {
+		return new Date(this.event.start.dateTime)
 	}
-	get end() {
-		return Date.parse(this.event.end.dateTime)
+	get endTime() {
+		return new Date(this.event.end.dateTime)
 	}
 	get duration() {
-		return (this.end - this.start) / 60000
+		return (this.endTime - this.startTime) / 60000
 	}
 	get sensitivity() {
 		return this.event.sensitivity
@@ -58,14 +78,17 @@ export default class Session {
 	postpone() {
 	}
 	start() {
+		this._started = true
+		return true
 	}
 	delay() {
 	}
 	abandon() {
-		this.status = 'abandoned'
+		this._abandoned = true
 	}
 	end() {
-		this.status = 'ended'
+		this._ended = true
+		return true
 	}
 	extend() {
 	}
