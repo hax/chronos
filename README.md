@@ -1,5 +1,7 @@
 # Conference Room System
 
+[![Greenkeeper badge](https://badges.greenkeeper.io/hax/chronos.svg)](https://greenkeeper.io/)
+
 ## Install
 
 ### Step 0
