@@ -27,8 +27,8 @@
     "express": "^4.14.0",
     "isomorphic-fetch": "^2.2.1",
     "mqtt": "^2.0.1",
-    "systemjs": "^0.19.39",
-    "systemjs-plugin-babel": "0.0.15",
+    "systemjs": "^0.20.12",
+    "systemjs-plugin-babel": "0.0.21",
     "vue": "^2.0.1"
   },
   "private": true
