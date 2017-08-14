@@ -13,7 +13,6 @@ local topics = {
 local MQTT = {
   QOS = {[0] = 0, [1] = 1, [2] = 2},
   RETAIN = 1,
-  AUTO_RECONNECT = 1,
   connected = 0,
 }
 
@@ -50,6 +49,15 @@ local function connect()
   chronos_mqtt_client:publish(topics.alert, "online", MQTT.QOS[2], MQTT.RETAIN)
 end
 
+function handle_mqtt_error(client, reason)
+  print(reason)
+  tmr.create():alarm(5000, tmr.ALARM_SINGLE, do_mqtt_connect)
+end
+
+function do_mqtt_connect()
+  m:connect(config.mqtt_broker.host, config.mqtt_broker.port, config.mqtt_broker.secure, 0, connect, handle_mqtt_error)
+end
+
 -- start logic --
 chronos_mqtt_client = mqtt.Client(config.hostname, config.mqtt_broker.timeout, config.mqtt_broker.user, config.mqtt_broker.password)
 chronos_mqtt_client:close()
@@ -69,11 +77,12 @@ chronos_mqtt_client:on("message", function(client, topic, data)
   print(topic .. ":"); if data then print(data) end
 
   if (topic == topics.debug_toggle_led) then
-    print('[INFO]toggle_led')
+    print('[INFO] toggle_led')
     chronos_led:toggle()
   end
 
   if (topic == topics.led_switch) then led_switch(tonumber(data)) end
 end)
 
-chronos_mqtt_client:connect(config.mqtt_broker.host, config.mqtt_broker.port, config.mqtt_broker.secure, MQTT.AUTO_RECONNECT)
+print("Connecting MQTT server...")
+do_mqtt_connect()

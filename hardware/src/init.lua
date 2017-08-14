@@ -7,6 +7,10 @@ modules = {
 
 print(node.bootreason())
 
+wifi.eventmon.register(wifi.eventmon.STA_DISCONNECTED, function(T) node.restart() end)
+
+gpio.mode(4, gpio.OUTPUT)
+
 function getFreeTimerId()
   for i = 0, 6 do
     if not tmr.state(i) then
@@ -17,7 +21,9 @@ end
 
 local Init = {
   log = function(str)
+    gpio.write(4, 0)
     uart.write(0, str)
+    gpio.write(4, 1)
   end,
   load = function(module)
     local found_flag = false
@@ -30,6 +36,7 @@ local Init = {
     end
     if found_flag ~= true then
       print('[ERR] module "' .. module .. '" not found.')
+      tmr.create():alarm(5000, tmr.ALARM_SINGLE, node.restart)
     end
   end
 }
@@ -40,7 +47,7 @@ Init.ap_list_connect = function(scaned_aps)
   for ssid, key in pairs(config.wifi) do
     if (scaned_aps[ssid]) then
       Init.log('Found matching SSID: ' .. ssid .. '\r\n')
-      wifi.sta.config(ssid, key, 0)
+      wifi.sta.config({ssid = ssid, pwd = key, save = true})
       Init.log('Connecting WiFi: ' .. ssid)
       wifi.sta.connect()
       local timer_id = getFreeTimerId()
