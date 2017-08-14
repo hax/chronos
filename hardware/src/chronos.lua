@@ -55,7 +55,7 @@ function handle_mqtt_error(client, reason)
 end
 
 function do_mqtt_connect()
-  m:connect(config.mqtt_broker.host, config.mqtt_broker.port, config.mqtt_broker.secure, 0, connect, handle_mqtt_error)
+  chronos_mqtt_client:connect(config.mqtt_broker.host, config.mqtt_broker.port, config.mqtt_broker.secure, 0, connect, handle_mqtt_error)
 end
 
 -- start logic --
